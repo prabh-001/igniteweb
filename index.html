@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Ignite — Learning & Productivity</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="app" id="appRoot">
+    <header class="site-header">
+      <div class="brand">
+        <div class="logo">🔥</div>
+        <div class="title-block">
+          <h1>Ignite</h1>
+          <p class="tag">Ignite your study flow — organize, focus & learn</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <input id="globalSearch" class="search-input" placeholder="Search subjects, tools, tasks..."/>
+        <div class="search-results hidden" id="searchResults"></div>
+        <div class="toggles">
+          <button id="darkToggle" class="icon-btn" title="Toggle dark mode">🌙</button>
+          <button id="goHome" class="ghost-btn">Home</button>
+          <button id="goProductivity" class="ghost-btn">Productivity</button>
+          <button id="goEducation" class="ghost-btn">Education</button>
+          <button id="goProgress" class="ghost-btn">Progress</button>
+          <button id="goDuel" class="ghost-btn">Duel</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="homeSection" class="section active">
+        <div class="welcome-card">
+          <h2>Welcome to Ignite</h2>
+          <p>Student-first hub that brings productivity tools and quick study resources together.</p>
+          <div class="home-actions">
+            <button id="enterProductivity" class="primary">Open Productivity Tools</button>
+            <button id="enterEducation" class="secondary">Open Education Hub</button>
+            <button id="enterProgress" class="outline">View Progress Tracker</button>
+            <button id="enterDuel" class="outline">Open Duel</button>
+          </div>
+          <div class="quick-cards">
+            <div class="mini-card">
+              <h3>Time</h3>
+              <p>Create your weekly timetable</p>
+            </div>
+            <div class="mini-card">
+              <h3>Focus</h3>
+              <p>Pomodoro Timer + session tracking</p>
+            </div>
+            <div class="mini-card">
+              <h3>Learn</h3>
+              <p>Lecture links, Drive notes & mark as studied</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="productivitySection" class="section">
+        <h2>Productivity Tools</h2>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-header">
+              <h3>📅 Timetable</h3>
+              <div class="small-actions">
+                <button class="small" id="loadSampleTT">Load Sample</button>
+                <button class="small" id="saveTT">Save</button>
+                <button class="small" id="exportTT">Export Tasks</button>
+              </div>
+            </div>
+            <div class="timetable-wrap">
+              <table id="timetable">
+                <thead>
+                  <tr><th>Day / Time</th><th>9–10</th><th>10–11</th><th>11–12</th><th>2–3</th><th>3–4</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Monday</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                  <tr><td>Tuesday</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                  <tr><td>Wednesday</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                  <tr><td>Thursday</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                  <tr><td>Friday</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                  <tr><td>Saturday</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="muted">Tip: double-click a cell to add it as a To-Do quickly.</p>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-header">
+              <h3>🍅 Pomodoro Timer</h3>
+              <div class="small-actions">
+                <button class="small" id="shortBtn">15</button>
+                <button class="small" id="workBtn">25</button>
+                <button class="small" id="longBtn">50</button>
+              </div>
+            </div>
+            <div class="pomodoro-wrap">
+              <div id="timerDisplay" class="timer-display">25:00</div>
+              <div class="timer-controls">
+                <button id="startPom" class="primary">Start</button>
+                <button id="pausePom" class="secondary">Pause</button>
+                <button id="resetPom" class="outline">Reset</button>
+              </div>
+              <div class="pom-stats">
+                <div>Sessions completed: <strong id="pomSessions">0</strong></div>
+                <div>Total minutes: <strong id="pomMinutes">0</strong> min</div>
+              </div>
+            </div>
+            <p class="muted">When a session ends, it counts toward your study minutes in Progress.</p>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-header">
+              <h3>✅ To-Do List</h3>
+              <div class="small-actions">
+                <button class="small" id="clearDone">Clear Done</button>
+                <button class="small" id="clearAll">Clear All</button>
+              </div>
+            </div>
+            <div class="todo-wrap">
+              <div class="todo-input">
+                <input id="taskInput" placeholder="New task (press Enter or click Add)"/>
+                <button id="addTaskBtn" class="primary">Add</button>
+              </div>
+              <ul id="taskList" class="task-list"></ul>
+            </div>
+            <p class="muted">Tasks persist in your browser.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="educationSection" class="section">
+        <div class="section-head">
+          <h2>Education Hub</h2>
+          <div>
+            <button id="openAddResource" class="primary">＋ Add Resource</button>
+          </div>
+        </div>
+        <div class="edu-controls">
+          <input id="eduSearch" placeholder="Search subjects or resources..."/>
+          <div class="subject-filters">
+            <button class="chip filter active" data-sub="All">All</button>
+            <button class="chip filter" data-sub="Engineering Mechanics">Mechanics</button>
+            <button class="chip filter" data-sub="Physics">Physics</button>
+            <button class="chip filter" data-sub="Mathematics">Mathematics</button>
+            <button class="chip filter" data-sub="Programming">Programming</button>
+            <button class="chip filter" data-sub="English">English</button>
+            <button class="chip filter" data-sub="Punjabi">Punjabi</button>
+          </div>
+        </div>
+        <div id="subjectsContainer" class="cards-grid"></div>
+      </section>
+
+      <section id="progressSection" class="section">
+        <h2>Progress Tracker</h2>
+        <div class="progress-grid">
+          <div class="progress-card">
+            <h3>Tasks Completed</h3>
+            <div class="stat">
+              <div class="big-num" id="progressDoneCount">0</div>
+              <div class="muted">tasks completed</div>
+            </div>
+          </div>
+          <div class="progress-card">
+            <h3>Study Minutes</h3>
+            <div class="stat">
+              <div class="big-num" id="progressMinutes">0</div>
+              <div class="muted">minutes (pomodoro + resources)</div>
+            </div>
+          </div>
+          <div class="progress-card">
+            <h3>Resources Watched</h3>
+            <div class="stat">
+              <div class="big-num" id="progressResourcesWatched">0</div>
+              <div class="muted">resources marked studied</div>
+            </div>
+          </div>
+          <div class="progress-card wide">
+            <h3>Weekly Goal</h3>
+            <div class="goal-row">
+              <input id="weeklyGoalInput" type="number" min="30" step="10" placeholder="set minutes (e.g., 300)"/>
+              <button id="saveGoal" class="small">Save Goal</button>
+              <label style="margin-left:auto;">
+                <input type="checkbox" id="autoProfileSave"/> Auto-save profile
+              </label>
+            </div>
+            <div class="goal-bar-wrap">
+              <div id="weeklyGoalBar" class="goal-bar"></div>
+            </div>
+            <div class="goal-stats">
+              <div id="weeklyGoalPercent">0%</div>
+              <div class="muted">of your weekly target</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="duelSection" class="section">
+        <h2>Ignite Duel — Compare with a Friend</h2>
+        <div class="duel-grid">
+          <div class="duel-card">
+            <h3>Your Profile</h3>
+            <label>Name <input id="myName" placeholder="Your name"/></label>
+            <div class="duel-stats">
+              <div>Tasks done: <strong id="myTasks">0</strong></div>
+              <div>Study minutes: <strong id="myMinutes">0</strong></div>
+              <div>Resources watched: <strong id="myResources">0</strong></div>
+            </div>
+            <div style="margin-top:8px;">
+              <button id="saveMyProfile" class="primary">Save My Profile</button>
+              <button id="loadMyProfile" class="small">Load</button>
+            </div>
+          </div>
+
+          <div class="duel-card">
+            <h3>Opponent</h3>
+            <label>Name <input id="oppName" placeholder="Friend's name"/></label>
+            <div class="duel-stats">
+              <div>Tasks done: <strong id="oppTasks">0</strong></div>
+              <div>Study minutes: <strong id="oppMinutes">0</strong></div>
+              <div>Resources watched: <strong id="oppResources">0</strong></div>
+            </div>
+            <div style="margin-top:8px;">
+              <button id="loadOppProfile" class="primary">Load Opponent Profile</button>
+              <button id="manualSetOpp" class="small">Set Manually</button>
+            </div>
+          </div>
+
+          <div class="duel-card wide">
+            <h3>Compare</h3>
+            <div class="compare-row">
+              <div>
+                <div class="muted">Tasks</div>
+                <div class="compare-bar-wrap"><div id="barTasksLeft" class="compare-bar"></div></div>
+              </div>
+              <div>
+                <div class="muted">Minutes</div>
+                <div class="compare-bar-wrap"><div id="barMinutesLeft" class="compare-bar"></div></div>
+              </div>
+              <div style="margin-top:10px;">
+                <button id="runCompare" class="primary">Compare Now</button>
+                <button id="copyResult" class="small">Copy Result</button>
+                <div id="duelResult" style="margin-top:8px;font-weight:700"></div>
+              </div>
+            </div>
+            <p class="muted">Tip: Save your profile to reuse it later. This is local-only (browser storage).</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>Made with ❤️ at NodeForSpeed 3.0 — Ignite</div>
+      <div class="footer-links">
+        <a href="#" id="repoLink">GitHub</a>
+        <a href="#" id="submitForm">Submit</a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="resourceModal" class="modal hidden">
+    <div class="modal-panel">
+      <h3>Add Resource</h3>
+      <form id="addResourceForm">
+        <label>Subject
+          <select id="resSubject">
+            <option>Engineering Mechanics</option>
+            <option>Physics</option>
+            <option>Mathematics</option>
+            <option>Programming</option>
+            <option>English</option>
+            <option>Punjabi</option>
+          </select>
+        </label>
+        <label>Title
+          <input id="resTitle" required placeholder="Example: Mechanics - Lecture 1"/>
+        </label>
+        <label>Type
+          <select id="resType">
+            <option>Lecture</option>
+            <option>Notes</option>
+            <option>PDF</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>URL
+          <input id="resUrl" required placeholder="https://..."/>
+        </label>
+        <div class="modal-actions">
+          <button type="submit" class="primary">Save</button>
+          <button type="button" id="cancelModal" class="outline">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
